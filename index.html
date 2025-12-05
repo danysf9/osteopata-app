@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OsteoApp - Reservas</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>OsteoBien - Reservas</h1>
+    <button id="adminBtn" title="Admin (candado)">🔒</button>
+  </header>
+
+  <main id="app">
+    <section id="catalog" class="card">
+      <h2>Catálogo de servicios</h2>
+      <div id="servicesList"></div>
+    </section>
+
+    <section id="booking" class="card hidden">
+      <h2>Reservar</h2>
+      <div id="selectedServiceName" class="subtitle"></div>
+      <form id="bookingForm">
+        <label>Fecha: <input type="date" id="date" required /></label>
+        <label>Hora: <select id="time" required></select></label>
+        <label>Nombre completo: <input type="text" id="fullname" required /></label>
+        <label>Dirección: <input type="text" id="address" required /></label>
+        <label>Población: <input type="text" id="town" required /></label>
+        <label>Teléfono móvil: <input type="tel" id="phone" required /></label>
+        <div class="form-row">
+          <button type="submit">Reservar cita</button>
+          <button type="button" id="cancelBookingBtn">Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="myReservations" class="card">
+      <h2>Mis reservas (cliente)</h2>
+      <div id="clientResList"></div>
+    </section>
+
+    <!-- Admin modal -->
+    <div id="adminModal" class="modal hidden">
+      <div class="modalContent">
+        <button id="closeAdmin" class="closeBtn">✖</button>
+        <h2>Panel Admin</h2>
+        <div id="adminActions">
+          <div class="admin-row">
+            <label>Contraseña: <input id="adminPass" type="password" /></label>
+            <button id="openAdminPanel">Entrar</button>
+          </div>
+        </div>
+
+        <div id="adminPanel" class="hidden">
+          <h3>Citas (próximas → lejanas)</h3>
+          <div id="adminList"></div>
+
+          <h3>Calendario (ver día)</h3>
+          <label>Ver fecha: <input type="date" id="adminDate" /></label>
+          <div id="adminDayList"></div>
+
+          <h3>Total ingresos estimados (día seleccionado)</h3>
+          <div id="adminTotal">0 €</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <small>OsteoBien — diseñado para bienestar y relax</small>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').catch(()=>{/*no crash*/});
+    }
+  </script>
+</body>
+</html>
